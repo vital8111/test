@@ -9,7 +9,22 @@ class Article extends Controller
     public $template = '/../../templates/article.php';
 
     function add(){
-        echo $this->view->render(__DIR__ . '/../../templates/item_add.php');
+        $article = new \App\Models\Article();
+        $article->title = $_POST['title'];
+        $article->text = $_POST['text'];
+        $article->image = "test.jpg";
+        $result = $article->save();
+        var_dump($result);
+        echo $article->id;die;
+        $article->image = $_POST['image'];
+        $result = $article->save();
+        if($result){
+            $this->view->message = 'Удачно';
+            echo $this->view->render(__DIR__.'/../../templates/result.php');
+        }else{
+            $this->view->message = 'Неудачно';
+            echo $this->view->render(__DIR__.'/../../templates/result.php');
+        }
     }
     function save(){
         $article = new \App\Models\Article();

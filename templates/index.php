@@ -24,11 +24,13 @@
 <?php endforeach; ?>
 
 <dialog>
-    <?php include "form.php"?>
+    <form action="/article/add" method="POST">
+        <?php include "form.php"?>
+    </form>
 </dialog>
 
 <script type = text/javascript>
-    var dialog = document.querySelector('dialog');
+    let dialog = document.querySelector('dialog');
     document.querySelector('#add').onclick = function() {
         dialog.showModal();
     };

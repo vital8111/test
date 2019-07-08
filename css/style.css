@@ -2,3 +2,6 @@ dialog{
     border-radius: 20px;
     background: lightgray;
 }
+.form-group{
+    width:500px;
+}
