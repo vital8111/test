@@ -50,9 +50,41 @@
 <button id="add" type="button" class="btn btn-success" onclick="add();">Добавить</button>
 <hr>
 <div id="articles">
-    <div>Test</div>
 </div>
 <script type="application/javascript">
+    function draw(element){
+        var div = document.getElementById('articles');
+        cont = document.createElement('article');
+        cont.className="container";
+        row1 = document.createElement('div');
+        row1.className="row";
+        row2 = document.createElement('div');
+        row2.className="row";
+        row3 = document.createElement('div');
+        row3.className="row";
+        btnModify=document.createElement('button');
+        btnModify.className="btn btn-warning";
+        btnModify.type="button";
+        btnModify.onclick="modify(event)";
+        btnModifyText=document.createTextNode('Изменить');
+        btnDel=document.createElement('button');
+        btnDel.className="btn btn-danger";
+        btnDel.type="button";
+        btnDel.onclick="del()";
+        btnDelText=document.createTextNode('Удалить');
+        btnModify.appendChild(btnModifyText);
+        row1.appendChild(btnModify);
+        btnDel.appendChild(btnDelText);
+        row1.appendChild(btnDel);
+        cont.appendChild(row1);
+        h2=document.createElement('h2');
+        h2Text=document.createTextNode(element.id+'.'+element.title);
+        h2.appendChild(h2Text);
+        row2.appendChild(h2);
+        cont.appendChild(row2);
+        cont.appendChild(row3);
+        div.appendChild(cont);
+    }
     var req = new XMLHttpRequest();
     var url = "/article/all/"
     req.open("GET", url, true);
@@ -61,9 +93,7 @@
     {
         if (req.readyState == 4) {
             var articles = JSON.parse(req.responseText);
-            var div = document.getElementById('articles');
-                articles.forEach(function(element){console.log(element);});
-            console.log(articles);
+            articles.forEach(function(element){draw(element);});
         }
     }
 </script>
