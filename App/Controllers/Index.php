@@ -8,7 +8,7 @@ class Index extends Controller
     public function handle ($param=[]){
         $articles = \App\Models\Article::findAll();
         $this->view->articles = $articles;
-        echo $this->view->render(__DIR__.'/../../templates/index.php');
+        $this->view->display(__DIR__.'/../../templates/index.php');
     }
 
     function add()
