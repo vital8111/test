@@ -14,7 +14,6 @@ class Db
             $config['user'],
             $config['pass'],
             array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-        $this->dbh->setAttribute(\PDO::ATTR_EMULATE_PREPARES, FALSE);
     }
     public function query($sql,$data=[], $class){
 
