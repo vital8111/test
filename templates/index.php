@@ -1,5 +1,8 @@
+<script type="application/javascript">
+
+</script>
 <dialog id="add">
-    <form enctype="multipart/form-data" action="/article/add" method="POST">
+    <form enctype="multipart/form-data" action="/article/add" method="POST" name="send">
         <?php include "form.php"?>
     </form>
 </dialog>
@@ -21,12 +24,19 @@
         var url = "/article/show/"+event.srcElement.parentNode.parentNode.childNodes[7].value;
         req.open("GET", url, true);
         req.send(null);
-        req.onreadystatechange = function(){
-            console.log(req.readyState)
+        req.onreadystatechange = function()
+        {
             if (req.readyState == 4) {
-            var response = req.responseText;
+                var article = JSON.parse(req.responseText);
+                var image = document.getElementById('image');
+                var title = document.getElementById('title');
+                var text = document.getElementById('text');
+                var id = document.getElementById('id');
+                title.value=article.title;
+                text.value=article.text;
+                console.log(title);
+            };
         }
-            console.log(response);};
     };
     function del(){
 
@@ -39,25 +49,21 @@
 <h1>All articles</h1>
 <button id="add" type="button" class="btn btn-success" onclick="add();">Добавить</button>
 <hr>
-<?php foreach($this->articles as $article):?>
-    <article class="container">
-        <div class="row">
-            <button type="button" class="btn btn-warning" onclick="modify(event);">Изменить</button>
-            <button type="button" class="btn btn-danger" onclick="del();">Удалить</button>
-        </div>
-        <div class="row">
-            <h2><?php echo $article->id.'.'.$article->title?></h2>
-        </div>
-        <div class="row">
-            <div class="col-sm-9">
-                <p><?php echo $article->text?></p>
-                <p><?php echo $article->datetime?></p>
-            </div>
-            <div class="col-sm-3">
-                <?php echo "<img src='/images/$article->image' class='img-fluid'>"?>
-            </div>
-        </div>
-        <input type="hidden" name="id" value='<?php echo $article->id?>'>
-    </article>
-    <hr>
-<?php endforeach; ?>
+<div id="articles">
+    <div>Test</div>
+</div>
+<script type="application/javascript">
+    var req = new XMLHttpRequest();
+    var url = "/article/all/"
+    req.open("GET", url, true);
+    req.send(null);
+    req.onreadystatechange = function()
+    {
+        if (req.readyState == 4) {
+            var articles = JSON.parse(req.responseText);
+            var div = document.getElementById('articles');
+                articles.forEach(function(element){console.log(element);});
+            console.log(articles);
+        }
+    }
+</script>

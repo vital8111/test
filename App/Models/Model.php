@@ -73,11 +73,4 @@ abstract class Model
             [':id'=>$id],
             static::class);
     }
-    static function nameSort($f1,$f2)
-    {
-        if($f1->name < $f2->name) return -1;
-        elseif($f1->name > $f2->name) return 1;
-        else return 0;
-    }
-
 }

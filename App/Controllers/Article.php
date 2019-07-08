@@ -35,6 +35,34 @@ class Article extends Controller
     function delete($id){
     }
     function show ($id){
-        echo "TEST";
+        $article = \App\Models\Article::findById($id);
+        echo json_encode($article);
+    }
+    function all(){
+        $articles = \App\Models\Article::findAll();
+        /*foreach($articles as $article)
+        {
+            echo '<article class="container">';
+            echo '<div class="row">';
+            echo '<button type="button" class="btn btn-warning" onclick="modify(event);">Изменить</button>';
+            echo '<button type="button" class="btn btn-danger" onclick="del();">Удалить</button>';
+            echo '</div>';
+            echo '<div class="row">';
+            echo '<h2>'.$article->id.'.'.$article->title.'</h2>';
+            echo '</div>';
+            echo '<div class="row">';
+            echo '<div class="col-sm-9">';
+            echo '<p>'.$article->text.'</p>';
+            echo '<p>'.$article->datetime.'</p>';
+            echo '</div>';
+            echo '<div class="col-sm-3">';
+            echo '<img src="/images/'.$article->image.'" class="img-fluid">';
+            echo '</div>';
+            echo '</div>';
+            echo '<input type="hidden" name="id" value='.$article->id.'>';
+            echo '</article>';
+            echo '<hr>';
+        }*/
+        echo json_encode($articles);
     }
 }

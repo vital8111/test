@@ -46,6 +46,9 @@ abstract class Controller
                 case "show":
                     $this->show($params['id']);
                     break;
+                case "all":
+                    $this->all();
+                    break;
                 default:
                     $this->index();
                     break;
@@ -59,14 +62,14 @@ abstract class Controller
         $this->view->things = $this->model_name::findAll();
         echo $this->view->render(__DIR__.$this->template.'_index.php');
     }
-    function show($id){
-        $this->view->thing = $this->model_name::findById($id);
-        echo $this->view->render(__DIR__.$this->template.'_show.php');
-    }
     abstract function add();
     abstract function save();
     abstract function modify($id);
     abstract function delete($id);
+    abstract function show($id);
+    abstract function all();
+
+
 
     public static function generateRandomString($length = 10) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

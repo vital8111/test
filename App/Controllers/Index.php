@@ -30,4 +30,14 @@ class Index extends Controller
     {
         // TODO: Implement delete() method.
     }
+
+    function show($id)
+    {
+        // TODO: Implement show() method.
+    }
+
+    function all()
+    {
+        // TODO: Implement all() method.
+    }
 }

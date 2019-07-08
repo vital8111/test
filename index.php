@@ -23,8 +23,3 @@ if(isset($parts[2])) {
     $ctrl();
 }
 
-
-
-
-
-
