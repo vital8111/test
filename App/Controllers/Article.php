@@ -12,48 +12,29 @@ class Article extends Controller
         $article = new \App\Models\Article();
         $article->title = $_POST['title'];
         $article->text = $_POST['text'];
-        $article->image = "test.jpg";
-        $result = $article->save();
-        var_dump($result);
-        echo $article->id;die;
-        $article->image = $_POST['image'];
-        $result = $article->save();
-        if($result){
-            $this->view->message = 'Удачно';
-            echo $this->view->render(__DIR__.'/../../templates/result.php');
+        $article->image = self::generateRandomString().'.jpg';
+        if (move_uploaded_file($_FILES['image']['tmp_name'], "images/".$article->image))
+        {
+            $result = $article->save();
+            if($result){
+                $this->view->message = 'Удачно';
+                echo $this->view->render(__DIR__.'/../../templates/result.php');
+            }else{
+                $this->view->message = 'Неудачно';
+                echo $this->view->render(__DIR__.'/../../templates/result.php');
+            }
         }else{
             $this->view->message = 'Неудачно';
             echo $this->view->render(__DIR__.'/../../templates/result.php');
         }
     }
     function save(){
-        $article = new \App\Models\Article();
-        $article->id = $_POST['id'];
-        $article->title = $_POST['title'];
-        $article->text = $_POST['text'];
-        $article->image = $_POST['image'];
-        $result = $article->save();
-        if($result){
-            $this->view->message = 'Удачно';
-            echo $this->view->render(__DIR__.'/../../templates/result.php');
-        }else{
-            $this->view->message = 'Неудачно';
-            echo $this->view->render(__DIR__.'/../../templates/result.php');
-        }
     }
     function modify($id){
-        $this->view->item = \App\Models\Article::findById($id);
-        echo $this->view->render(__DIR__ . '/../../templates/item_modify.php');
     }
     function delete($id){
-        $article = \App\Models\Article::findById($id);
-        $result = $article->delete();
-        if($result){
-            $this->view->message = 'Удачно';
-            echo $this->view->render(__DIR__.'/../../templates/result.php');
-        }else{
-            $this->view->message = 'Неудачно';
-            echo $this->view->render(__DIR__.'/../../templates/result.php');
-        }
+    }
+    function show ($id){
+        echo "TEST";
     }
 }

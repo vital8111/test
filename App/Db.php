@@ -12,7 +12,8 @@ class Db
         $this->dbh = new \PDO(
             'mysql:host=' . $config['host'] . ';dbname=' . $config['dbname'],
             $config['user'],
-            $config['pass']);
+            $config['pass'],
+            array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
     }
     public function query($sql,$data=[], $class){
 
