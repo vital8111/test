@@ -40,12 +40,12 @@ class Article extends Controller
     }
     function all(){
         $articles = \App\Models\Article::findAll();
-        /*foreach($articles as $article)
+        foreach($articles as $article)
         {
             echo '<article class="container">';
             echo '<div class="row">';
-            echo '<button type="button" class="btn btn-warning" onclick="modify(event);">Изменить</button>';
-            echo '<button type="button" class="btn btn-danger" onclick="del();">Удалить</button>';
+            echo '<button type="button" class="btn btn-warning btn-modify" onclick="modify(event);">Изменить</button>';
+            echo '<button type="button" class="btn btn-danger btn-del" onclick="del();">Удалить</button>';
             echo '</div>';
             echo '<div class="row">';
             echo '<h2>'.$article->id.'.'.$article->title.'</h2>';
@@ -62,7 +62,7 @@ class Article extends Controller
             echo '<input type="hidden" name="id" value='.$article->id.'>';
             echo '</article>';
             echo '<hr>';
-        }*/
-        echo json_encode($articles);
+        }
+        //echo json_encode($articles);
     }
 }

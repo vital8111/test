@@ -18,10 +18,10 @@
         dialog.showModal();
     };
     function modify(event){
-        //console.log(event.srcElement.parentNode.parentNode.childNodes[7].value);
+        console.log(event.srcElement.parentNode.parentNode.childNodes[3].value);
         dialog.showModal();
         var req = new XMLHttpRequest();
-        var url = "/article/show/"+event.srcElement.parentNode.parentNode.childNodes[7].value;
+        var url = "/article/show/"+event.srcElement.parentNode.parentNode.childNodes[3].value;
         req.open("GET", url, true);
         req.send(null);
         req.onreadystatechange = function()
@@ -52,7 +52,7 @@
 <div id="articles">
 </div>
 <script type="application/javascript">
-    function draw(element){
+    /*function draw(element){
         var div = document.getElementById('articles');
         cont = document.createElement('article');
         cont.className="container";
@@ -84,7 +84,7 @@
         cont.appendChild(row2);
         cont.appendChild(row3);
         div.appendChild(cont);
-    }
+    }*/
     var req = new XMLHttpRequest();
     var url = "/article/all/"
     req.open("GET", url, true);
@@ -92,8 +92,15 @@
     req.onreadystatechange = function()
     {
         if (req.readyState == 4) {
-            var articles = JSON.parse(req.responseText);
-            articles.forEach(function(element){draw(element);});
+            var articles = req.responseText;
+            var div = document.getElementById("articles");
+            div.innerHTML=articles;
+            /*btnsMod = document.getElementsByClassName("btn-modify");
+            for (btnMod of btnsMod){
+                console.log(btnMod);
+                btnMod.onclick=function(){modify(event)};
+            }*/
+            //articles.forEach(function(element){draw(element);});
         }
     }
 </script>
