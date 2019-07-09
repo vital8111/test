@@ -19,16 +19,13 @@ class Article extends Controller
             if($result){
                 $this->view->message = 'Удачно';
                 echo $this->view->message;
-                //echo $this->view->render(__DIR__.'/../../templates/result.php');
             }else{
                 $this->view->message = 'Неудачно';
                 echo $this->view->message;
-                //echo $this->view->render(__DIR__.'/../../templates/result.php');
             }
         }else{
             $this->view->message = 'Неудачно';
             echo $this->view->message;
-            //echo $this->view->render(__DIR__.'/../../templates/result.php');
         }
     }
     function save(){
@@ -46,16 +43,13 @@ class Article extends Controller
             if($result){
                 $this->view->message = 'Удачно';
                 echo $this->view->message;
-                //echo $this->view->render(__DIR__.'/../../templates/result.php');
             }else{
                 $this->view->message = 'Неудачно';
                 echo $this->view->message;
-                //echo $this->view->render(__DIR__.'/../../templates/result.php');
             }
         }else{
             $this->view->message = 'Неудачно';
             echo $this->view->message;
-            //echo $this->view->render(__DIR__.'/../../templates/result.php');
         }
 
     }

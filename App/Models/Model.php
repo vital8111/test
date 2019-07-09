@@ -68,9 +68,5 @@ abstract class Model
         $data = [':id'=>$this->id];
         $db = new Db();
         return $db->execute($sql,$data);
-        return $db->query(
-            $sql,
-            [':id'=>$id],
-            static::class);
     }
 }
