@@ -18,21 +18,53 @@ class Article extends Controller
             $result = $article->save();
             if($result){
                 $this->view->message = 'Удачно';
-                echo $this->view->render(__DIR__.'/../../templates/result.php');
+                echo $this->view->message;
+                //echo $this->view->render(__DIR__.'/../../templates/result.php');
             }else{
                 $this->view->message = 'Неудачно';
-                echo $this->view->render(__DIR__.'/../../templates/result.php');
+                echo $this->view->message;
+                //echo $this->view->render(__DIR__.'/../../templates/result.php');
             }
         }else{
             $this->view->message = 'Неудачно';
-            echo $this->view->render(__DIR__.'/../../templates/result.php');
+            echo $this->view->message;
+            //echo $this->view->render(__DIR__.'/../../templates/result.php');
         }
     }
     function save(){
     }
     function modify($id){
+        //var_dump($_POST);
+        //var_dump($_FILES);
+        $article = \App\Models\Article::findById($id);
+        $article->title = $_POST['title'];
+        $article->text = $_POST['text'];
+        $article->image = self::generateRandomString().'.jpg';
+        if (move_uploaded_file($_FILES['image']['tmp_name'], "images/".$article->image))
+        {
+            $result = $article->save();
+            if($result){
+                $this->view->message = 'Удачно';
+                echo $this->view->message;
+                //echo $this->view->render(__DIR__.'/../../templates/result.php');
+            }else{
+                $this->view->message = 'Неудачно';
+                echo $this->view->message;
+                //echo $this->view->render(__DIR__.'/../../templates/result.php');
+            }
+        }else{
+            $this->view->message = 'Неудачно';
+            echo $this->view->message;
+            //echo $this->view->render(__DIR__.'/../../templates/result.php');
+        }
+
     }
     function delete($id){
+        $article = \App\Models\Article::findById($id);
+        if ($article->delete())
+            echo "Удачно";
+        else
+            echo "Неудачно";
     }
     function show ($id){
         $article = \App\Models\Article::findById($id);
@@ -45,7 +77,7 @@ class Article extends Controller
             echo '<article class="container">';
             echo '<div class="row">';
             echo '<button type="button" class="btn btn-warning btn-modify" onclick="modify(event);">Изменить</button>';
-            echo '<button type="button" class="btn btn-danger btn-del" onclick="del();">Удалить</button>';
+            echo '<button type="button" class="btn btn-danger btn-del" onclick="del('."$article->id".');">Удалить</button>';
             echo '</div>';
             echo '<div class="row">';
             echo '<h2>'.$article->id.'.'.$article->title.'</h2>';

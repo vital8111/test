@@ -7,19 +7,20 @@
     </form>
 </dialog>
 <dialog id="modify">
-    <form enctype="multipart/form-data" action="/article/modify/" method="POST">
-        <?php include "form.php"?>
+    <form enctype="multipart/form-data" action="/article/modify/" method="POST" name="mod">
+        <?php include "form_modify.php"?>
     </form>
 </dialog>
 
 <script type = text/javascript>
     var dialog = document.querySelector('dialog');
+    var dialogModify = document.getElementById('modify');
     function add(){
         dialog.showModal();
     };
     function modify(event){
-        console.log(event.srcElement.parentNode.parentNode.childNodes[3].value);
-        dialog.showModal();
+        //console.log(event.srcElement.parentNode.parentNode.childNodes[3].value);
+        dialogModify.showModal();
         var req = new XMLHttpRequest();
         var url = "/article/show/"+event.srcElement.parentNode.parentNode.childNodes[3].value;
         req.open("GET", url, true);
@@ -28,21 +29,50 @@
         {
             if (req.readyState == 4) {
                 var article = JSON.parse(req.responseText);
-                var image = document.getElementById('image');
-                var title = document.getElementById('title');
-                var text = document.getElementById('text');
-                var id = document.getElementById('id');
+                var image = document.getElementById('image_mod');
+                var title = document.getElementById('title_mod');
+                var text = document.getElementById('text_mod');
+                var id = document.getElementById('id_mod');
                 title.value=article.title;
                 text.value=article.text;
-                console.log(title);
+                id.value=article.id;
+                //console.log(title);
             };
         }
     };
-    function del(){
-
+    function del(id){
+        var req = new XMLHttpRequest();
+        var url = "/article/delete/"+id;
+        req.open("GET", url, true);
+        req.send(null);
+        req.onreadystatechange = function()
+        {
+            if (req.readyState == 4)
+            {
+                result = req.responseText;
+                alert(result);
+                var req2 = new XMLHttpRequest();
+                var url = "/article/all/"
+                req2.open("GET", url, true);
+                req2.send(null);
+                req2.onreadystatechange = function()
+                {
+                    if (req2.readyState == 4)
+                    {
+                        var art = req2.responseText;
+                        var div = document.getElementById("articles");
+                        div.innerHTML=art;
+                        document.getElementById("modify").close();
+                    };
+                }
+            }
+        }
     }
     document.querySelector('#close').onclick = function() {
         dialog.close();
+    };
+    document.querySelector('#close_mod').onclick = function() {
+        dialogModify.close();
     };
 </script>
 
